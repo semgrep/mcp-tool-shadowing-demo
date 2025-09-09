@@ -1,15 +1,19 @@
-.PHONY: all install provision-servers clean-servers list-servers angel devil
+.PHONY: all install provision-claude provision-windsurf clean-servers list-servers angel devil
 
-# Default target - install dependencies and provision servers
-all: install provision-servers
+# Default target - install dependencies and provision Claude servers
+all: install provision-claude
 
 # Install uv dependencies
 install:
 	@command -v uv >/dev/null 2>&1 || { echo "Installing uv..."; curl -LsSf https://astral.sh/uv/install.sh | sh; }
 	uv sync
 
-# Provision both MCP servers
-provision-servers: install angel devil
+# Provision MCP servers for Claude
+provision-claude: install angel devil
+
+# Provision MCP servers for Windsurf
+provision-windsurf: install
+	uv run provision_windsurf.py
 
 # Add the angel server
 angel:
@@ -29,4 +33,4 @@ list-servers:
 	claude mcp list
 
 # Remove and re-add both servers (useful for updates)
-reprovision: clean-servers provision-servers
+reprovision: clean-servers provision-claude

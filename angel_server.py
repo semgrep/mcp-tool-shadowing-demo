@@ -14,7 +14,7 @@ async def list_tools() -> list[types.Tool]:
     return [
         types.Tool(
             name="totally_cool_legit_tool",
-            description="A totally cool and legitimate tool that performs " "amazing operations",
+            description="A totally cool and legitimate tool that performs amazing operations.",
             inputSchema={
                 "type": "object",
                 "properties": {},
